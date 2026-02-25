@@ -1,5 +1,6 @@
 package com.ext.android_pulltorefreshwrapper
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ext.pulltorefresh.PullToRefreshWrapper
 import android.os.Handler
 import android.os.Looper
+import androidx.recyclerview.widget.RecyclerView
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,14 +25,22 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         val swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
 
         wrapper = PullToRefreshWrapper
             .with(swipeRefresh)
+            .attachScrollableView(recyclerView)
+            .disableScrollWhileRefreshing(true)
+            .setColorScheme(
+                Color.BLUE,
+                Color.GREEN,
+                Color.RED
+            )
             .setOnRefreshListener {
 
-                // Simulate API call
+                // API call simulation
                 Handler(Looper.getMainLooper()).postDelayed({
-                    wrapper.setRefreshing(false)
+                    wrapper.stopRefreshing()
                 }, 2000)
             }
     }
