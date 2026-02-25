@@ -1,5 +1,2 @@
 jdk:
   - openjdk17
-
-install:
-  - ./gradlew :pulltorefresh:assembleRelease -x lint -x test
